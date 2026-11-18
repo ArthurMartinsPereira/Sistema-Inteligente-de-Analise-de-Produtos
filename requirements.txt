@@ -1,0 +1,6 @@
+# Required libraries to run the code
+streamlit
+sqlalchemy
+pandas
+matplotlib
+scikit-learn

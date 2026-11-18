@@ -14,6 +14,24 @@ st.info("Nossa aplicação está sendo desenvolvida.")
 
 st.divider()
 
+category = st.selectbox(
+    "Selecione a categoria do produto",
+    ["Alimento", "Limpeza", "Tecnologia", "Vestuário", "Entretenimento"]
+)
+
+produto = st.text_input(
+    label="Informe o produto:",
+    placeholder="Nome do produto",
+)
+
+if st.button("Buscar"):
+    if produto:
+        st.write(f"Você está buscando por {produto}")
+        st.write(f"Categoria: {category}")
+        st.success(f"Busca realizada.")
+    else:
+        st.warning("Informe um produto!")
+
 st.header("Visão Geral")
 
 col1, col2, col3 = st.columns(3)
