@@ -7,6 +7,10 @@ from database.connection import Base, engine
 class Product(Base):
     __tablename__= 'products'
 
+    def __repr__(self):
+        return (f"<Product(id={self.id}, sku='{self.sku}', name='{self.name}', "
+                f"price={self.price}, cost={self.cost}, stock={self.stock})>")
+
     id: Mapped[int] = mapped_column(
         Integer,
         primary_key=True,

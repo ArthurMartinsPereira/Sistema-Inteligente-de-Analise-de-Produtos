@@ -1,6 +1,6 @@
 from database.connection import Session
 from database.models import Product
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 class ProductRepository:
     def cadastrar(self, produto):
@@ -19,8 +19,8 @@ class ProductRepository:
             product = session.scalar(stmt)
 
             if product:
-                product.estoque = novo_estoque
-                session.close()
+                product.stock = novo_estoque
+                session.commit()
                 return product
             else:
                 return None
@@ -30,6 +30,13 @@ class ProductRepository:
             stmt = select(Product).where(Product.sku == sku)
             return session.scalar(stmt)
 
-    def remover(self):
-        pass
+    def remover(self, sku: str):
+        with Session() as session:
+            stmt = delete(Product).where(Product.sku == sku)
+
+            result = session.execute(stmt)
+            session.commit()
+
+            return result.rowcount > 0
+
 

@@ -8,7 +8,7 @@ engine = create_engine(DATABASE_URL, echo=True)
 class Base(DeclarativeBase):
     pass
 
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind=engine, expire_on_commit=False)
 
 
 def init_db():
