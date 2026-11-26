@@ -10,7 +10,7 @@ class ProductRepository:
 
     def listar(self):
         with Session() as session:
-            stmt = select(Product)
+            stmt = select(Product) # stmt abbreviation for "statement"
             return session.scalars(stmt).all()
 
     def atualizar(self, sku, novo_estoque):

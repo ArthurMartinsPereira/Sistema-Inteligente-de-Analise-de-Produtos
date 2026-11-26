@@ -1,7 +1,7 @@
-from sqlalchemy import String, Integer
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Integer, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from database.connection import Base, engine
+from database.connection import Base
 
 
 class Product(Base):
@@ -41,4 +41,36 @@ class Product(Base):
     stock: Mapped[int] = mapped_column(
         Integer,
         default=0,
+    )
+
+    category_id: Mapped[int] = mapped_column(
+        ForeignKey('categories.category_id'),
+        nullable=False,
+    )
+
+    category: Mapped["Category"] = relationship(
+        back_populates='products',
+    )
+
+class Category(Base):
+    __tablename__ = 'categories'
+
+    category_id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+
+    category_name: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+        unique=True,
+    )
+
+    category_description: Mapped[str] = mapped_column(
+        String(200),
+    )
+
+    products: Mapped[list["Product"]] = relationship(
+        back_populates="category",
     )

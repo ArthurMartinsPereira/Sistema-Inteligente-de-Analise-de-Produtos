@@ -12,5 +12,5 @@ Session = sessionmaker(bind=engine, expire_on_commit=False)
 
 
 def init_db():
-    from database.models import Product
+    from database.models import Product, Category
     Base.metadata.create_all(engine)
