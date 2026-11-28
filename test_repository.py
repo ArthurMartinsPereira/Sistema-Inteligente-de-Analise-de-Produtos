@@ -1,7 +1,9 @@
 from repositories.product_repository import ProductRepository as PR
-from database.models import Product
+from repositories.category_repository import CategoryRepository as CR
+from database.models import Product, Category
 
 repository = PR()
+cat_repository = CR()
 
 # === Cadastrar Produto===
 # produto = Product(
@@ -32,3 +34,27 @@ repository = PR()
 
 # === Remover Produto ===
 # repository.remover(sku='TEC005')
+
+
+# === Cadastrar Categoria ===
+categoria = Category(
+    # o category_id já é aoutoincrementado
+    category_name="Limpeza",
+    category_description="Todos os produtos de Limpeza"
+)
+
+cat_repository.cadastrar(categoria)
+
+# === Listar Categorias ===
+categorias = cat_repository.listar()
+for c in categorias:
+    print(c.category_name, c.category_description)
+
+# === Buscar por Categoria ===
+categoria = cat_repository.buscar("Limpeza")
+if categoria:
+    print(categoria.category_name, categoria.category_description)
+else: print("Categoria não encontrada!")
+
+# === Remover Categoria ===
+# cat_repository.remover('Limpeza')

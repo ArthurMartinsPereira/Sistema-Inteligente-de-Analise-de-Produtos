@@ -3,7 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database.connection import Base
 
-
+# Tabela dos Produtos:
 class Product(Base):
     __tablename__= 'products'
 
@@ -52,8 +52,13 @@ class Product(Base):
         back_populates='products',
     )
 
+# Tabela de Categorias:
 class Category(Base):
     __tablename__ = 'categories'
+
+    def __repr__(self) -> str:
+        return ("<Category(id={self.category_id}, name='{self.category_name}',"
+                "description='{self.category_description}')>")
 
     category_id: Mapped[int] = mapped_column(
         Integer,
